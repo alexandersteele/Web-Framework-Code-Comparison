@@ -1,5 +1,6 @@
 from git_clone import build_org_repos
 from identify_framework import get_languages, get_frameworks
+from identify_endpoints import get_flask_endpoints
 
 build = input("Clone Repos? (Y or N): ")
 if build == "Y":
@@ -16,5 +17,13 @@ print(" ")
 print("Framework(s): ", end=" ")
 for framework in get_frameworks(repo):
     print(framework, end=" ")
+    if framework == "Flask":
+        print("")
+        print("Identifying Flask Endpoints:")
+
+        for endpoints in get_flask_endpoints(repo):
+            print(endpoints)
+
+
 print(" ")
 

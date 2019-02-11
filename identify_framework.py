@@ -7,7 +7,7 @@ def get_languages(repo):
     # Loop through files
     files = os.listdir('./cloned_repos/' + repo)
     for file in files:
-        
+ 
         # Recursively add languages from directories
         if os.path.isdir('./cloned_repos/' + repo + '/' + file):
             for language in get_languages(repo + '/' + file):
@@ -26,6 +26,9 @@ def get_languages(repo):
         if file_ext == '.html':
             if "HTML" not in languages:
                 languages.append("HTML")
+        if file_ext == '.css':
+            if "CSS" not in languages:
+                languages.append("CSS")
 
     return languages  # return repo languages
 
@@ -48,7 +51,7 @@ def get_frameworks(repo):
             if get_python_framework(filepath) not in frameworks:
                 frameworks.append(get_python_framework(filepath))
         if file_ext == '.js':
-            if get_python_framework(filepath) not in frameworks:
+            if get_javascript_framework(filepath) not in frameworks:
                 frameworks.append(get_javascript_framework(filepath))
     return frameworks
 
@@ -60,9 +63,6 @@ def get_python_framework(filepath):
 
     for line in f.readlines():
         line = line.lower().rstrip()
-        if "hello world" in line:
-            python_framework = "n00b"
-            break
         if "import flask" in line:
             python_framework = "Flask"
             break
