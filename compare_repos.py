@@ -8,22 +8,28 @@ if build == "Y":
     build_org_repos(org)
 
 repo = input("Enter a repo to evaluate: ")
-print("Language(s): ", end=" ")
+
+print("Language(s):  ", end=" ")
 for language in get_languages(repo):
     if language:
         print(language, end=" ")
 print(" ")
 
+frameworks = get_frameworks(repo)
+
 print("Framework(s): ", end=" ")
-for framework in get_frameworks(repo):
-    print(framework, end=" ")
-    if framework == "Flask":
-        print("")
-        print("Identifying Flask Endpoints:")
-
-        for endpoints in get_flask_endpoints(repo):
-            print(endpoints)
-
-
+for framework in frameworks:
+    if framework:
+        print(framework, end=" ")
 print(" ")
+
+if "Flask" in frameworks:
+    print("")
+    print("Identifying Flask Endpoint(s):")
+
+    for endpoints in get_flask_endpoints(repo):
+        print(endpoints)
+
+
+
 

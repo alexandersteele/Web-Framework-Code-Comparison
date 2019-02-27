@@ -74,4 +74,10 @@ def get_python_framework(filepath):
 
 def get_javascript_framework(filepath):
     javascript_framework = ""
+    f = open(filepath, "r", errors='replace')
+
+    for line in f.readlines():
+        if "angular.module" in line:
+            javascript_framework = "AngularJS1"
+
     return javascript_framework
