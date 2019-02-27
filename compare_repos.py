@@ -37,12 +37,14 @@ for framework in frameworks:
     if framework:
         print(framework, end=" ")
 
+endpoints = get_flask_endpoints(repo)
+
 if "Flask" in frameworks:
     print("")
     print("Identifying Flask Endpoint(s):")
 
-    for endpoints in get_flask_endpoints(repo):
-        print(endpoints)
+    for endpoint in endpoints:
+        print(endpoint)
         
 print(" ")
 
@@ -56,44 +58,61 @@ print(" ")
 # other repo
 other_repos = os.listdir('./cloned_repos/')
 for other_repo in other_repos:
-    print(" ")
-    print(" --------- " + other_repo + " ----------- ")
-    print(" ")
-    
-    print("Language(s):  ", end=" ")
-    for language in get_languages(other_repo):
-        if language:
-            print(language, end=" ")
-    print(" ")
 
-    other_frameworks = get_frameworks(other_repo)
-
-    print("Framework(s): ", end=" ")
-    for framework in other_frameworks:
-        if framework:
-            print(framework, end=" ")
-
-    print(" ")
-
-    if "Flask" in other_frameworks:
-        print("")
-        print("Identifying Flask Endpoint(s):")
-
-        for endpoints in get_flask_endpoints(other_repo):
-            print(endpoints)
+    if other_repo != repo:
+        
+        print(" ")
+        print(" --------- " + other_repo + " ----------- ")
+        print(" ")
+        
+        print("Language(s):  ", end=" ")
+        for language in get_languages(other_repo):
+            if language:
+                print(language, end=" ")
         print(" ")
 
-    frameworks_intersect = intersect(frameworks, other_frameworks)
+        other_frameworks = get_frameworks(other_repo)
 
-    print("Matching frameworks: ", end=" ")
-    for match in frameworks_intersect:
-        if match:
-            print(match, end=" ")
-    print(" ")
+        print("Framework(s): ", end=" ")
+        for framework in other_frameworks:
+            if framework:
+                print(framework, end=" ")
 
-    print(" ")
-    print(" -------------------------- ")
-    print(" ")
+        print(" ")
+
+        other_endpoints = get_flask_endpoints(other_repo)
+
+        if "Flask" in other_frameworks:
+            print("")
+            print("Identifying Flask Endpoint(s):")
+
+            for endpoint in other_endpoints:
+                print(endpoint)
+            print(" ")
+
+        frameworks_intersect = intersect(frameworks, other_frameworks)
+        endpoints_intersect = intersect(endpoints, other_endpoints)
+        endpoints_percent = 0
+
+        print("Matching frameworks with " + repo + ": ", end=" ")
+        for match in frameworks_intersect:
+            if match:
+                print(match, end=" ")
+        print(" ")
+
+        if len(endpoints_intersect) > 0:
+                endpoints_percent = (len(endpoints_intersect) / len(other_endpoints)) * 100
+        print("Matching endpoints with " + repo + ": " + str(endpoints_percent) + "%", end=" ")
+        print(" ")
+        for match in endpoints_intersect:
+            if match:
+                print(match, end=" ")
+                print(" ")
+        print(" ")
+
+        print(" ")
+        print(" -------------------------- ")
+        print(" ")
 
 
 
