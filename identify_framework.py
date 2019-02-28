@@ -14,7 +14,6 @@ def get_languages(repo):
                 if language not in languages:
                     languages.append(language)
 
-
         # File extension language checking
         filename, file_ext = os.path.splitext('./cloned_repos/' + repo + '/' + file)
         if file_ext == '.py' or file_ext == '.pyc':
@@ -45,6 +44,7 @@ def get_frameworks(repo):
                 if framework not in frameworks:
                     frameworks.append(framework)
 
+        # Check file extension for language, run framework detection method corresponding to language
         filename, file_ext = os.path.splitext('./cloned_repos/' + repo + '/' + file)
         filepath = './cloned_repos/' + repo + '/' + file
         if file_ext == '.py' or file_ext == '.pyc':
@@ -57,10 +57,10 @@ def get_frameworks(repo):
 
 
 def get_python_framework(filepath):
-
     python_framework = ""
     f = open(filepath, "r", errors='replace')
 
+    # Loop through file lines searching for Python Framework indicator
     for line in f.readlines():
         line = line.lower().rstrip()
         if "import flask" in line:
@@ -76,6 +76,7 @@ def get_javascript_framework(filepath):
     javascript_framework = ""
     f = open(filepath, "r", errors='replace')
 
+    # Loop through file lines searching for JS Framework indicator
     for line in f.readlines():
         if "angular.module" in line:
             javascript_framework = "AngularJS1"
