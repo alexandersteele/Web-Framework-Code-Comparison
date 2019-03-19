@@ -12,7 +12,6 @@ def get_flask_endpoints(repo):
         if os.path.isdir('./cloned_repos/' + repo + '/' + file):
             if file == "flask":
                 break
-
             for endpoints in get_flask_endpoints(repo + '/' + file):
                 if endpoints not in endpoints_list:
                     endpoints_list.append(endpoints)

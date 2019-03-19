@@ -48,37 +48,34 @@ def get_frameworks(repo):
         filename, file_ext = os.path.splitext('./cloned_repos/' + repo + '/' + file)
         filepath = './cloned_repos/' + repo + '/' + file
         if file_ext == '.py' or file_ext == '.pyc':
-            if get_python_framework(filepath) not in frameworks:
-                frameworks.append(get_python_framework(filepath))
+            get_pyframe = get_python_framework(filepath)
+            if get_pyframe not in frameworks and get_pyframe is not None:
+                frameworks.append(get_pyframe)
         if file_ext == '.js':
-            if get_javascript_framework(filepath) not in frameworks:
-                frameworks.append(get_javascript_framework(filepath))
+            get_jsframe = get_javascript_framework(filepath)
+            if get_jsframe not in frameworks  and get_jsframe is not None:
+                frameworks.append(get_jsframe)
     return frameworks
 
 
 def get_python_framework(filepath):
-    python_framework = ""
     f = open(filepath, "r", errors='replace')
 
     # Loop through file lines searching for Python Framework indicator
     for line in f.readlines():
         line = line.lower().rstrip()
         if "import flask" in line:
-            python_framework = "Flask"
-            break
+            return "Flask"
         if "import django" in line:
-            python_framework = "Django"
-
-    return python_framework
+            return "Django"
 
 
 def get_javascript_framework(filepath):
-    javascript_framework = ""
     f = open(filepath, "r", errors='replace')
 
     # Loop through file lines searching for JS Framework indicator
     for line in f.readlines():
         if "angular.module" in line:
-            javascript_framework = "AngularJS1"
-
-    return javascript_framework
+            return "AngularJS1"
+        if "http.createServer" in line or "NODE_ENV" in line:
+            return "NodeJS"
