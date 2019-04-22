@@ -8,11 +8,12 @@ repositories = []
 
 class Repository:
 
-    def __init__(self, name, frameworks, endpoints, models):
+    def __init__(self, name, frameworks, endpoints, models, model_fields):
         self.name = name
         self.frameworks = frameworks
         self.endpoints = endpoints
         self.models = models
+        self.model_fields = model_fields
 
 
 def percentage(l1, l2):
@@ -30,7 +31,8 @@ if build == "Y":
 
 framework_threshold = int(input("Enter framework threshold value: "))
 endpoint_threshold = int(input("Enter endpoint threshold value: "))
-models_threshold = int(input("Enter model threshold value: "))
+models_threshold = int(input("Enter model class threshold value: "))
+model_fields_threshold = int(input("Enter model fields threshold value: "))
 
 print(" ")
 print(" -------------------------- ")
@@ -40,10 +42,10 @@ repos = os.listdir('./cloned_repos/')
 for repo in repos:
     frameworks = get_frameworks(repo) # Get frameworks from outer loop repo
     endpoints = get_flask_endpoints(repo) # Get endpoints from outer loop repo
-    models = get_flask_model_classes(repo) # Get models from outer loop repo
-    model_field_names = get_flask_model_field_names(repo) # Get models from outer loop repo
+    models = get_flask_model_classes(repo) # Get model classes from outer loop repo
+    model_fields = get_flask_model_field_names(repo) # Get models from outer loop repo
 
-    repositories.append(Repository(repo, frameworks, endpoints, models))
+    repositories.append(Repository(repo, frameworks, endpoints, models, model_fields))
 
 
 # 2-Layer Repository Comparison Iteration
@@ -53,10 +55,12 @@ for repo in repositories:
             frameworks_intersect = list(set(repo.frameworks) & set(other_repo.frameworks)) # Matching frameworks
             endpoints_intersect = list(set(repo.endpoints) & set(other_repo.endpoints)) # Matching endpoints
             models_intersect = list(set(repo.models) & set(other_repo.models)) # Matching model classes
+            model_fields_intersect = list(set(repo.model_fields) & set(other_repo.model_fields)) # Matching model fields
 
             frameworks_percent = percentage(frameworks_intersect, other_repo.frameworks)
             endpoints_percent = percentage(endpoints_intersect, other_repo.endpoints)
             models_percent = percentage(models_intersect, other_repo.models)
+            model_fields_percent = percentage(model_fields_intersect, other_repo.model_fields)
 
             # Output for repos with matching framework(s) and endpoints(s)      
             if (frameworks_percent >= framework_threshold and len(frameworks_intersect) > 0):
@@ -81,3 +85,9 @@ for repo in repositories:
                             print(match)
                 print("\n\n")
 
+                print("Matching model fields: " + str(model_fields_percent) + "%")
+                if (model_fields_percent >= model_fields_threshold):
+                    for match in model_fields_intersect:
+                        if match:
+                            print(match)
+                print("\n\n")

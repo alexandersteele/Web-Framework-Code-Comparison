@@ -47,19 +47,12 @@ def get_flask_model_field_names(repo):
         if file_ext == '.py':
             f = open('./cloned_repos/' + repo + '/' + file, "r", errors='replace')
 
-            model_file = False
             # Iterate through file lines
             for line in f.readlines():
                 line = line.rstrip()
-                if "db.Model" in line: # Search for "db.Model" models
-                    model_file = True
+                if "db.Column" in line: # Search for "db.Model" models
+                     model_fields_list.append(line)
 
-            # Iterate through file lines
-            if (model_file):
-                for line in f.readlines():
-                    line = line.rstrip()
-                    if "db.Model" not in line: # Search for "db.Model" models
-                        model_fields_list.append(line)
                         
 
     return model_fields_list
