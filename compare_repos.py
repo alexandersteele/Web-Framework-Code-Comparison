@@ -1,8 +1,8 @@
 import os
 from git_clone import build_org_repos
 from identify_framework import get_frameworks
-from identify_endpoints import get_flask_endpoints
-from identify_models import get_flask_model_classes, get_flask_model_field_names
+from identify_endpoints import get_flask_endpoints, get_django_endpoints
+from identify_models import get_flask_model_classes, get_flask_model_field_names, get_django_model_classes, get_django_model_field_names
 
 repositories = []
 
@@ -41,9 +41,32 @@ print(" ")
 repos = os.listdir('./cloned_repos/')
 for repo in repos:
     frameworks = get_frameworks(repo) # Get frameworks from outer loop repo
-    endpoints = get_flask_endpoints(repo) # Get endpoints from outer loop repo
-    models = get_flask_model_classes(repo) # Get model classes from outer loop repo
-    model_fields = get_flask_model_field_names(repo) # Get models from outer loop repo
+
+    endpoints = []
+    models = []
+    model_fields = []
+
+    # Flask analysis
+    endpoints.extend(get_flask_endpoints(repo)) # Get endpoints from outer loop repo
+    models.extend(get_flask_model_classes(repo)) # Get model classes from outer loop repo
+    model_fields.extend(get_flask_model_field_names(repo)) # Get models from outer loop repo
+
+    #Django analysis
+    endpoints.extend(get_django_endpoints(repo))
+    models.extend(get_django_model_classes(repo)) 
+    #print(get_django_model_field_names(repo))
+    model_fields.extend(get_django_model_field_names(repo))
+
+
+    #Laravel analysis
+
+    #ReactJS analysis
+
+    #AngularJS analysis
+
+
+
+
 
     repositories.append(Repository(repo, frameworks, endpoints, models, model_fields))
 
