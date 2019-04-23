@@ -1,4 +1,5 @@
 import os
+import sys
 from git_clone import build_org_repos
 from identify_framework import get_frameworks
 from identify_endpoints import get_flask_endpoints, get_django_endpoints
@@ -22,6 +23,17 @@ def percentage(l1, l2):
     else:
         return 0
 
+# Flag input
+if len(sys.argv) == 1:
+    framework_threshold = endpoint_threshold = models_threshold = model_fields_threshold = 0
+elif len(sys.argv) != 5:
+    print("threshold values for: framework, endpoint, model class and model fields must either all be included, or not at all")
+    exit(1)
+else:
+    framework_threshold = int(sys.argv[1])
+    endpoint_threshold = int(sys.argv[2])
+    models_threshold = int(sys.argv[3])
+    model_fields_threshold = int(sys.argv[4])
 
 # User Input
 build = input("Clone Repos? (Y or N): ")
@@ -29,10 +41,7 @@ if build == "Y":
     org = input("Enter name of organisation: ")
     build_org_repos(org)
 
-framework_threshold = int(input("Enter framework threshold value: "))
-endpoint_threshold = int(input("Enter endpoint threshold value: "))
-models_threshold = int(input("Enter model class threshold value: "))
-model_fields_threshold = int(input("Enter model fields threshold value: "))
+
 
 print(" ")
 print(" -------------------------- ")
@@ -40,22 +49,26 @@ print(" ")
 
 repos = os.listdir('./cloned_repos/')
 for repo in repos:
+
+    print("Analysing: " + repo + " repository")
+
     frameworks = get_frameworks(repo) # Get frameworks from outer loop repo
 
     endpoints = []
     models = []
     model_fields = []
 
-    # Flask analysis
-    endpoints.extend(get_flask_endpoints(repo)) # Get endpoints from outer loop repo
-    models.extend(get_flask_model_classes(repo)) # Get model classes from outer loop repo
-    model_fields.extend(get_flask_model_field_names(repo)) # Get models from outer loop repo
+    if "Flask" in frameworks:
+        # Flask analysis
+        endpoints.extend(get_flask_endpoints(repo)) # Get endpoints from outer loop repo
+        models.extend(get_flask_model_classes(repo)) # Get model classes from outer loop repo
+        model_fields.extend(get_flask_model_field_names(repo)) # Get models from outer loop repo
 
-    #Django analysis
-    endpoints.extend(get_django_endpoints(repo))
-    models.extend(get_django_model_classes(repo)) 
-    #print(get_django_model_field_names(repo))
-    model_fields.extend(get_django_model_field_names(repo))
+    if "Django" in frameworks:
+        #Django analysis
+        endpoints.extend(get_django_endpoints(repo))
+        models.extend(get_django_model_classes(repo)) 
+        model_fields.extend(get_django_model_field_names(repo))
 
 
     #Laravel analysis
@@ -94,23 +107,27 @@ for repo in repositories:
                         print(match)
                 print("\n")
                 
-                print("Matching endpoints:"  + str(endpoints_percent) + "%")
+                
                 if (endpoints_percent >= endpoint_threshold):
+                    print("Matching endpoints:"  + str(endpoints_percent) + "%")
                     for match in endpoints_intersect:
                         if match:
                             print(match)
-                print("\n")
+                    print("\n")
                     
-                print("Matching model classes: " + str(models_percent) + "%")
+                
                 if (models_percent >= models_threshold):
+                    print("Matching model classes: " + str(models_percent) + "%")
                     for match in models_intersect:
                         if match:
                             print(match)
-                print("\n\n")
+                    print("\n\n")
 
-                print("Matching model fields: " + str(model_fields_percent) + "%")
+                
                 if (model_fields_percent >= model_fields_threshold):
+                    print("Matching model fields: " + str(model_fields_percent) + "%")
                     for match in model_fields_intersect:
                         if match:
                             print(match)
-                print("\n\n")
+                    print("\n\n")
+                    

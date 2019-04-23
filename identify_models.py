@@ -11,7 +11,7 @@ def get_flask_model_classes(repo):
     for file in files:
         if os.path.isdir('./cloned_repos/' + repo + '/' + file):
             if file == "flask":
-                break
+                continue
             for models in get_flask_model_classes(repo + '/' + file):
                 if models not in model_classes_list:
                     model_classes_list.append(models)
@@ -38,7 +38,8 @@ def get_flask_model_field_names(repo):
     for file in files:
         if os.path.isdir('./cloned_repos/' + repo + '/' + file):
             if file == "flask":
-                break
+                continue
+                
             for models in get_flask_model_field_names(repo + '/' + file):
                 if models not in model_fields_list:
                     model_fields_list.append(models)
@@ -50,14 +51,14 @@ def get_flask_model_field_names(repo):
             # Iterate through file lines
             for line in f.readlines():
                 line = line.rstrip()
-                if "db.Column" in line: # Search for "db.Model" models
-                     model_fields_list.append(line)
+                if "db.Column" in line:
+                    model_fields_list.append(line)
 
                         
 
     return model_fields_list
 
-# Get Python Flask model classes
+
 def get_django_model_classes(repo):
     model_classes_list = []
 

@@ -75,7 +75,12 @@ def get_javascript_framework(filepath):
 
     # Loop through file lines searching for JS Framework indicator
     for line in f.readlines():
+        # AngularJS1
         if "angular.module" in line:
             return "AngularJS1"
-        if "http.createServer" in line or "NODE_ENV" in line:
-            return "NodeJS"
+        
+        # ReactJS
+        if "import" in line and "react" in line:
+            return "ReactJS"
+
+    
