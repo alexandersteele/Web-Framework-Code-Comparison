@@ -28,6 +28,9 @@ def get_languages(repo):
         if file_ext == '.css':
             if "CSS" not in languages:
                 languages.append("CSS")
+        if file_ext == '.php':
+            if "CSS" not in languages:
+                languages.append("PHP")
 
     return languages  # return repo languages
 
@@ -55,6 +58,10 @@ def get_frameworks(repo):
             get_jsframe = get_javascript_framework(filepath)
             if get_jsframe not in frameworks  and get_jsframe is not None:
                 frameworks.append(get_jsframe)
+        if file_ext == '.php':
+            get_phpframe = get_php_framework(filepath)
+            if get_phpframe not in frameworks  and get_phpframe is not None:
+                frameworks.append(get_phpframe)
     return frameworks
 
 
@@ -83,4 +90,11 @@ def get_javascript_framework(filepath):
         if "import" in line and "react" in line:
             return "ReactJS"
 
-    
+def get_php_framework(filepath):
+    f = open(filepath, "r", errors='replace')
+
+    # Loop through file lines searching for JS Framework indicator
+    for line in f.readlines():
+
+        if "Illuminate\\" in line:
+            return "Laravel"
