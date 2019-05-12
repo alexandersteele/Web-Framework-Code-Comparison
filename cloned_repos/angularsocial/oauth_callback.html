@@ -1,0 +1,34 @@
+<html>
+
+<head>
+    <script>
+        /*Split  redirect URL into parameters*/
+        var callbackResponse = (document.URL).split("#")[1];
+        var responseParameters = (callbackResponse).split("&"); //Check how many parameters are returned
+        var parameterMap = []; //Parameter array
+        
+        for (var i = 0; i < responseParameters.length; i++) {
+            parameterMap[responseParameters[i].split("=")[0]] = responseParameters[i].split("=")[1];
+        }
+        
+        if (parameterMap.access_token !== undefined && parameterMap.access_token !== null) { //Check for valid access token
+            var imgur = {
+                oauth: {
+                    access_token: parameterMap.access_token, //Access token
+                    expires_in: parameterMap.expires_in, //Expiration of access token
+                    account_username: parameterMap.account_username, //username of account
+                }
+            };
+            window.localStorage.setItem("imgur", JSON.stringify(imgur)); //Store oauth parameters
+            window.location.href = "http://localhost:8000/index.html#/secure"; //Redirect to user page
+        } 
+        else {
+            alert("Problem authenticating");
+        }
+
+    </script>
+</head>
+
+<body>Redirecting...</body>
+
+</html>
