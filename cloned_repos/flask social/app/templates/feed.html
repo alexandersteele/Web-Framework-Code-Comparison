@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Print flash messages at top of page -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+	<ul>
+		{% for message in messages %}
+		<li>{{ message }} </li>
+		{% endfor %}
+	</ul>
+{% endif %}
+{% endwith %}
+
+
+
+<div class="container">
+
+<h1>Connektion Feed</h1>
+<div class="jumbotron">
+
+<h3>Have something to say?</h3>
+<!-- Add Todo item form -->
+<form action="" method="post" name="feed">
+	{{ form.hidden_tag() }}
+	<p>{{ form.text }}<br></p>
+	<p><input type="submit" value="Submit"></p>
+</form>
+</div>
+
+
+<!-- Loop through incompleted tasks and print each -->
+{% for i in list_item %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{i.username}}</h3>
+  </div>
+  <div class="panel-body">
+    <p>{{i.body}}</p>
+		<p>{{i.date}}</p>
+  </div>
+</div>
+{% endfor %}
+
+</div>
+
+{% endblock %}

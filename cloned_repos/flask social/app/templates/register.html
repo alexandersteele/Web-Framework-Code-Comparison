@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- Print flash messages at top of page -->
+{% with messages = get_flashed_messages() %} {% if messages %}
+<ul>
+    {% for message in messages %}
+    <li>{{ message }} </li>
+    {% endfor %}
+</ul>
+{% endif %} {% endwith %}
+
+<div class="container">
+
+    <h1>Register</h1>
+
+    <div class="jumbotron">
+        <!-- Add Todo item form -->
+        <form action="" method="post" name="register">
+            {{ form.hidden_tag() }}
+            <p>Username: {{ form.email }}<br></p>
+            <p>Password: &nbsp;{{ form.password }}<br></p>
+            <p><input type="submit" value="Submit"></p>
+        </form>
+    </div>
+
+</div>
+
+
+{% endblock %}

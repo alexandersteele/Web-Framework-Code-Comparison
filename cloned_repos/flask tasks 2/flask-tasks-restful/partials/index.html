@@ -1,0 +1,10 @@
+<div ng-repeat="task in tasks | filter:search">
+    <div class="panel panel-default">
+        <div class="panel-heading">{{ task.owner }}: {{task.title}}</div>
+        <div class="panel-body">
+            <p>{{ task.task }} <a style="float:right;" href="/task/{{task.id}}" class="btn btn-default btn-xs">View</a></p>
+            <p>Completed: {{ task.completed }} <button style="float:right;" class="btn btn-danger btn-xs" ng-click="delete($index)">Delete</button></p>
+            
+        </div>
+    </div>
+</div>

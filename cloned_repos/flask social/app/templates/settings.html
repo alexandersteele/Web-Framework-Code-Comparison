@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Print flash messages at top of page -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+	<ul>
+		{% for message in messages %}
+		<li>{{ message }} </li>
+		{% endfor %}
+	</ul>
+{% endif %}
+{% endwith %}
+
+<div class="container">
+
+<h1>Account Settings</h1>
+
+<div class="jumbotron">
+  <h3>Change Password</h3>
+
+  <form action="" method="post" name="register">
+    {{ form.hidden_tag() }}
+    <p>New Password: {{ form.newPassword }}<br></p>
+    <p><input type="submit" value="Change"></p>
+  </form>
+
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,50 @@
+<h1>Add a Task</h1>
+<div class="jumbotron">
+    <form class="form-horizontal" ng-submit="submit()">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="add-form">
+                    <div class="form-group">
+                        <label for="firstname" class="control-label">Owner</label>
+                        <input type="text" id="owner" class="form-control" ng-model="task.owner">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="add-form">
+                    <div class="form-group">
+                        <label for="surname" class="control-label">Title</label>
+                        <input type="text" id="title" class="form-control" ng-model="task.title">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="add-form">
+                    <div class="form-group">
+                        <label for="phone" class="control-label">Task</label>
+                        <input type="text" id="task" class="form-control" ng-model="task.task">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="add-form" id="checkbox">
+                    <div class="form-group">
+                        <label for="email" class="control-label">Completed</label>
+                        <input type="checkbox" id="completed" class="form-control" ng-model="task.completed">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Add Contact"></input>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-success" ng-show="added">
+            The contact was added successfully.
+        </div>
+
+
+    </form>
+</div>

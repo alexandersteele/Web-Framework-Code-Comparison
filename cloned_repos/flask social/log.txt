@@ -1,0 +1,12 @@
+08-12-2017   19:28:51   Guest posted on feed Severity: low
+08-12-2017   19:29:07   Alex registered Severity: high
+08-12-2017   19:29:17   Alex logged in Severity: medium
+08-12-2017   19:29:28   Alex posted on feed Severity: low
+08-12-2017   21:01:58   Guest posted on feed Severity: low
+08-12-2017   21:02:21   Guest posted on feed Severity: low
+08-12-2017   21:03:18   Alex logged in Severity: medium
+08-12-2017   21:03:25   Alex changed their password Severity: medium
+08-12-2017   21:03:31   Alex posted on feed Severity: low
+08-12-2017   21:06:53   Alex posted on feed Severity: low
+08-12-2017   21:08:44   Alex posted on feed Severity: low
+08-12-2017   21:08:57   Guest posted on feed Severity: low

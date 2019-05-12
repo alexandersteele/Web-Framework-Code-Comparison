@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Uncompleted Tasks</h1>
+
+<!-- Loop through incompleted tasks and print each -->
+{% for i in list_item %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{i.title}}</h3>
+  </div>
+  <div class="panel-body">
+    <p>{{i.body}}</p>
+		<p>{{i.date}}</p>
+		</form>
+  </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}
